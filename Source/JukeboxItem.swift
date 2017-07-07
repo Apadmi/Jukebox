@@ -139,10 +139,6 @@ open class JukeboxItem: NSObject {
         }
     }
     
-    open override var description: String {
-        return "<JukeboxItem:\ntitle: \(meta.title)\nalbum: \(meta.album)\nartist:\(meta.artist)\nduration : \(meta.duration),\ncurrentTime : \(currentTime)\nURL: \(URL)>"
-    }
-    
     // MARK:- Private methods -
     
     fileprivate func validateAsset(_ asset : AVURLAsset) -> Bool {
