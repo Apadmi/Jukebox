@@ -121,6 +121,7 @@ open class JukeboxItem: NSObject {
                 self.delegate?.jukeboxItemDidLoadPlayerItem(self)
             } else {
                 self.didLoad = false
+                self.delegate?.jukeboxItemDidFail(self)
             }
         }
     }
