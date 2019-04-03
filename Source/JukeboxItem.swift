@@ -162,7 +162,7 @@ open class JukeboxItem: NSObject {
         timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(JukeboxItem.notifyDelegate), userInfo: nil, repeats: false)
     }
     
-    func notifyDelegate() {
+    @objc func notifyDelegate() {
         timer?.invalidate()
         timer = nil
         self.delegate?.jukeboxItemDidUpdate(self)
@@ -190,7 +190,7 @@ open class JukeboxItem: NSObject {
             
             for item in metadataArray
             {
-                item.loadValuesAsynchronously(forKeys: [AVMetadataKeySpaceCommon], completionHandler: { () -> Void in
+                item.loadValuesAsynchronously(forKeys: [AVMetadataKeySpace.common.rawValue], completionHandler: { () -> Void in
                     self.meta.process(metaItem: item)
                     DispatchQueue.main.async {
                         self.scheduleNotification()
@@ -273,7 +273,7 @@ private extension JukeboxItem.Meta {
     
     func process(metaItem item: AVMetadataItem) {
         
-        switch item.commonKey
+        switch item.commonKey?.rawValue
         {
         case "title"? :
             title = item.value as? String
@@ -326,7 +326,7 @@ fileprivate extension JukeboxItem.MetaBuilder {
     /// - Parameter metadataItem: The item to check for.
     /// - Returns: Whether the metadata exists.
     fileprivate func hasMetaItem(_ metadataItem: AVMetadataItem) -> Bool {
-        switch metadataItem.commonKey {
+        switch metadataItem.commonKey?.rawValue {
         case "title"? :
             return self.title != nil
         case "albumName"? :
